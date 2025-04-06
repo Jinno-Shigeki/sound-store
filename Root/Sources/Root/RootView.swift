@@ -7,12 +7,14 @@
 
 import SwiftUI
 import SwiftData
+import NotePresentation
 
 public struct RootView: View {
 
     public var body: some View {
         NavigationStack {
             Text("first view")
+            NoteView()
         }
     }
     

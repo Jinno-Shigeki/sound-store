@@ -4,27 +4,25 @@
 import PackageDescription
 
 let package = Package(
-    name: "Root",
+    name: "Note",
     platforms: [.iOS(.v18)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "Root",
-            targets: ["Root"]),
-    ],
-    dependencies: [
-        .package(name: "Note", path: "../Note"),
+            name: "NotePresentation",
+            targets: ["NotePresentation"])
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
+        // NotePresentationモジュール（Presentationフォルダを含む）
         .target(
-            name: "Root",
-            dependencies: [.product(name: "NotePresentation", package: "Note")]
+            name: "NotePresentation",
+            path: "Sources/Note/Presentation" // Presentationフォルダを指定
         ),
         .testTarget(
-            name: "RootTests",
-            dependencies: ["Root"]
+            name: "NoteTests",
+            dependencies: ["NotePresentation"]
         ),
     ]
 )
