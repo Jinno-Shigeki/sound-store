@@ -6,46 +6,44 @@
 //
 
 import SwiftUI
+import NoteViewModel
 
 public struct NoteView: View {
+    @State var viewModel: NoteViewModel = NoteViewModel()
     @State private var title = ""
-    @State var instrument = ""
     @State var amp = ""
     @State var effector = ""
     @State var other = ""
     @State var memo = ""
     
     public var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                VStack(spacing: 0) {
-                    TextField("タイトル", text: $title)
-                        .font(.title.bold())
-                    Divider()
-                        .background(.black)
+        VStack {
+            Form {
+                Section {
+                    VStack(spacing: 0) {
+                        TextField("タイトル", text: $viewModel.note.title)
+                            .font(.body)
+                    }
+                } header: {
+                    Text("タイトル")
+                        .font(.title2.bold())
+                        .padding(.bottom, 4)
                 }
-                .padding(.horizontal, 16)
-                
-                VStack(alignment: .leading) {
-                    InstrumentSection(input: $instrument)
-                    AmpSection(input: $amp)
-                    EffectorSection(input: $effector)
-                    OtherSection(input: $other)
-                    MemoSection(input: $memo)
-                }
-                .padding(.horizontal, 16)
+
+                InstrumentSection(instrument: $viewModel.note.instrument)
+                AmpSection(amp: $viewModel.note.amp)
+                EffectorSection(effectors: $viewModel.note.effectors)
+                OtherSection(other: $viewModel.note.other)
+                MemoSection(memo: $viewModel.note.memo)
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.gray.opacity(0.1))
+            .navigationTitle("ノート")
         }
-        .navigationTitle("ノート")
     }
     
     public init() {
         
-    }
-    
-    private func section(_ name: String) -> some View {
-        Text(name)
-            .font(.title2.bold())
     }
 }
 

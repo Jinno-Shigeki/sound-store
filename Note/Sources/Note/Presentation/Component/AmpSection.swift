@@ -6,20 +6,42 @@
 //
 
 import SwiftUI
+import NoteModel
 
 struct AmpSection: View {
-    @Binding var input: String
+    @Binding var amp: Note.Amp
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("アンプ")
-                .font(.title2.bold())
+        Section {
+            TextField("モデル", text: $amp.name)
             
-            TextField("アンプ名", text: $input)
+            VStack(spacing: 4) {
+                sliderContent(title: "Gain", value: $amp.gain)
+                sliderContent(title: "Master", value: $amp.master)
+                sliderContent(title: "Bass", value: $amp.bass)
+                sliderContent(title: "Middle", value: $amp.middle)
+                sliderContent(title: "Treble", value: $amp.treble)
+                sliderContent(title: "Presence", value: $amp.presence)
+            }
+        } header: {
+            Text("アンプ")
+                .font(.title3.bold())
+                .padding(.bottom, 8)
+        }
+    }
+    
+    private func sliderContent(title: String, value: Binding<Double>) -> some View {
+        HStack(spacing: 16) {
+            Text(title).font(.body)
+                .frame(width: 80, alignment: .leading)
+            Slider(value: value, in: 0...10, step: 0.1)
+            Text(String(format: "%.1f", value.wrappedValue))
         }
     }
 }
 
 #Preview {
-    AmpSection(input: .constant(""))
+    Form {
+        AmpSection(amp: .constant(.init(name: "fender")))
+    }
 }

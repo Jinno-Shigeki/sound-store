@@ -6,25 +6,29 @@
 //
 
 import SwiftUI
+import NoteModel
 
 struct MemoSection: View {
-    @Binding var input: String
+    @Binding var memo: Note.Memo
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("メモ")
-                .font(.title2.bold())
-            
-            TextEditor(text: $input)
+        Section {
+            TextEditor(text: $memo.description)
                 .frame(height: 120)
                 .frame(maxWidth: .infinity)
                 .scrollContentBackground(.hidden)
-                .background(Color.gray.opacity(0.1))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
+        } header: {
+            Text("メモ")
+                .font(.title3.bold())
+                .padding(.bottom, 4)
         }
     }
 }
 
 #Preview {
-    MemoSection(input: .constant("MEMO"))
+    @Previewable @State var memo: Note.Memo = .init(description: "")
+    Form {
+        MemoSection(memo: $memo)
+    }
 }

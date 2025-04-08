@@ -18,7 +18,17 @@ let package = Package(
         // NotePresentationモジュール（Presentationフォルダを含む）
         .target(
             name: "NotePresentation",
-            path: "Sources/Note/Presentation" // Presentationフォルダを指定
+            dependencies: ["NoteViewModel"],
+            path: "Sources/Note/Presentation"
+        ),
+        .target(
+            name: "NoteViewModel",
+            dependencies: ["NoteModel"],
+            path: "Sources/Note/ViewModel"
+        ),
+        .target(
+            name: "NoteModel",
+            path: "Sources/Note/Model"
         ),
         .testTarget(
             name: "NoteTests",
