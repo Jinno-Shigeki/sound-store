@@ -13,7 +13,7 @@ struct InstrumentSection: View {
     
     var body: some View {
         Section {
-            TextField("モデル", text: $instrument.name)
+            TextField("モデル名", text: $instrument.name)
             
             Picker(selection: $instrument.type) {
                 Text("アコースティックギター").tag(Note.Instrument.InstrumentType.acoustic)
@@ -29,7 +29,8 @@ struct InstrumentSection: View {
                 Text("センター").tag("センター")
                 Text("リア").tag("リア")
             }
-            .pickerStyle(.palette)
+            .pickerStyle(.segmented)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
             .padding(.vertical, 4)
         } header: {
             Text("楽器")
@@ -37,10 +38,15 @@ struct InstrumentSection: View {
                 .padding(.bottom, 4)
         }
     }
+    
+    init(instrument: Binding<Note.Instrument>) {
+        self._instrument = instrument
+    }
 }
 
 #Preview {
+    @Previewable @State var instrument: Note.Instrument = .init(name: "")
     Form {
-        InstrumentSection(instrument: .constant(.init(name: "")))
+        InstrumentSection(instrument: $instrument)
     }
 }

@@ -37,18 +37,44 @@ public struct NoteView: View {
                     EffectorSection(effectors: $viewModel.note.effectors)
                     OtherSection(other: $viewModel.note.other)
                     MemoSection(memo: $viewModel.note.memo)
+                    
+                    // ボタン被り対策用の空白
+                    Color.clear
+                        .frame(height: 100)
+                        .listRowBackground(Color.clear)
                 }
+                .tint(.pink)
+                .listSectionSpacing(0)
                 .scrollContentBackground(.hidden)
                 .background(Color.gray.opacity(0.1))
-                .navigationTitle("ノート")
             }
             
             RecorderView(fileName: "")
+                .frame(height: 120)
+        }
+        .edgesIgnoringSafeArea(.bottom)
+        .navigationTitle("ノート")
+        .onDisappear {
+            resetColor()
         }
     }
     
     public init() {
-        
+        Self.colorSetup()
+    }
+    
+    private static func colorSetup() {
+        let appearance = UISegmentedControl.appearance()
+        appearance.selectedSegmentTintColor = .white
+        appearance.setTitleTextAttributes([.foregroundColor: UIColor.systemPink], for: .selected)
+        appearance.setTitleTextAttributes([.foregroundColor: UIColor.systemPink], for: .normal)
+    }
+    
+    private func resetColor() {
+        let appearance = UISegmentedControl.appearance()
+        appearance.selectedSegmentTintColor = nil
+        appearance.setTitleTextAttributes(nil, for: .selected)
+        appearance.setTitleTextAttributes(nil, for: .normal)
     }
 }
 

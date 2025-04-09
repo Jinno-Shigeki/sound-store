@@ -12,7 +12,7 @@ public struct RecorderView: View {
     @State private var viewModel: RecorderViewModel
     
     public var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             Button {
                 do {
                     viewModel.isRecording ? viewModel.stop() : try viewModel.start()

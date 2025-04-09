@@ -13,10 +13,11 @@ struct AmpSection: View {
     
     var body: some View {
         Section {
-            TextField("モデル", text: $amp.name)
+            TextField("モデル名", text: $amp.name)
             
             VStack(spacing: 4) {
                 sliderContent(title: "Gain", value: $amp.gain)
+                sliderContent(title: "Volume", value: $amp.volume)
                 sliderContent(title: "Master", value: $amp.master)
                 sliderContent(title: "Bass", value: $amp.bass)
                 sliderContent(title: "Middle", value: $amp.middle)
@@ -41,7 +42,8 @@ struct AmpSection: View {
 }
 
 #Preview {
+    @Previewable @State var amp: Note.Amp = .init(name: "")
     Form {
-        AmpSection(amp: .constant(.init(name: "fender")))
+        AmpSection(amp: $amp)
     }
 }

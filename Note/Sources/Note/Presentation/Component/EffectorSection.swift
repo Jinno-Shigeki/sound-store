@@ -19,7 +19,6 @@ struct EffectorSection: View {
                 } label: {
                     Text("追加")
                 }
-                .tint(.primary.opacity(0.5))
             } header: {
                 Text("エフェクター")
                     .font(.title3.bold())
@@ -29,7 +28,7 @@ struct EffectorSection: View {
         
         ForEach(effectors.indices, id: \.self) { index in
             Section {
-                TextField("モデル", text: $effectors[index].name)
+                TextField("モデル名", text: $effectors[index].name)
                 if !$effectors[index].settings.isEmpty {
                     effector(settings: $effectors[index].settings)
                 }
@@ -72,7 +71,6 @@ struct EffectorSection: View {
                 Text("追加")
                     .font(.body)
             }
-            .tint(.primary.opacity(0.5))
         }
         .padding(.bottom, 8)
     }
@@ -85,7 +83,7 @@ struct EffectorSection: View {
                 Image(systemName: "minus.circle.fill")
                     .resizable()
                     .frame(width: 24, height: 24)
-                    .tint(.gray.opacity(0.4))
+                    .opacity(0.8)
             }
             Spacer()
             Button {
@@ -94,7 +92,7 @@ struct EffectorSection: View {
                 Image(systemName: "plus.circle.fill")
                     .resizable()
                     .frame(width: 24, height: 24)
-                    .tint(.gray.opacity(0.4))
+                    .opacity(0.8)
             }
         }
         .padding(.top, 4)

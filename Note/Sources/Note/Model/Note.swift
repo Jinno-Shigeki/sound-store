@@ -95,12 +95,12 @@ extension Note {
         /// エレキ/アコギ/ベースなど
         public var type: InstrumentType
         /// pickupの位置
-        public var pickup: String?
+        public var pickup: String
 
         public init(
             name: String,
             type: InstrumentType = .electric,
-            pickup: String? = nil
+            pickup: String = "センター"
         ) {
             self.name = name
             self.type = type
