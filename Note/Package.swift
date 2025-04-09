@@ -12,13 +12,19 @@ let package = Package(
             name: "NotePresentation",
             targets: ["NotePresentation"])
     ],
+    dependencies: [
+        .package(name: "Recorder", path: "../Recorder")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         // NotePresentationモジュール（Presentationフォルダを含む）
         .target(
             name: "NotePresentation",
-            dependencies: ["NoteViewModel"],
+            dependencies: [
+                "NoteViewModel",
+                .product(name: "RecorderPresentation", package: "Recorder")
+            ],
             path: "Sources/Note/Presentation"
         ),
         .target(

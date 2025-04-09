@@ -11,17 +11,24 @@ let package = Package(
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "Recorder",
-            targets: ["Recorder"]),
+            name: "RecorderPresentation",
+            targets: ["RecorderPresentation"]),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Recorder"),
+            name: "RecorderPresentation",
+            dependencies: ["RecorderViewModel"],
+            path: "Sources/Recorder/Presentation"
+        ),
+        .target(
+            name: "RecorderViewModel",
+            path: "Sources/Recorder/ViewModel"
+        ),
         .testTarget(
             name: "RecorderTests",
-            dependencies: ["Recorder"]
+            dependencies: ["RecorderPresentation"]
         ),
     ]
 )
